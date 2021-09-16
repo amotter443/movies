@@ -1,0 +1,65 @@
+import requests
+import json
+import pandas as pd
+
+API_key = ''
+
+#Read in data
+df = pd.read_csv(r'\watched.csv')
+
+#Drop Letterboxd URI 
+df.drop(['Letterboxd URI'], axis=1, inplace=True)
+#Initialize columns for desired info
+df['id'] = 000000
+df['original_language'] = 'en'
+df['overview'] = 'blank'
+df['popularity'] = 0.00
+df['vote_average'] = 0.00
+df['vote_count'] = 0.00
+df['genres'] = 'blank'
+df['revenue'] = 000000
+df['runtime'] = 000
+df['tagline'] = 'blank'
+
+
+#Initial for loop to pull high-level info about the film
+for i in range (0,len(df)):
+    title=format(df.iloc[i,1])
+    query = 'https://api.themoviedb.org/3/search/movie?api_key='+API_key+'&query='+title+''
+    response =  requests.get(query)
+    if response.status_code==200: 
+        json_format = json.loads(response.text)
+        if len(json_format['results']) > 0 :
+            df.iloc[i,3] = str(json_format['results'][0]['id'])
+            df.iloc[i,4] = str(json_format['results'][0]['original_language'])
+            df.iloc[i,5] = str(json_format['results'][0]['overview'])
+            df.iloc[i,6] = str(json_format['results'][0]['popularity'])
+            df.iloc[i,7] = str(json_format['results'][0]['vote_average'])
+            df.iloc[i,8] = str(json_format['results'][0]['vote_count'])
+        else:
+            i = i + 1
+    else:
+        i = i + 1
+
+#Secondary Pull that uses Movie ID to get more info 
+for i in range (0,len(df)):
+    title=format(df.iloc[i,3])
+    query = 'https://api.themoviedb.org/3/movie/'+title+'?api_key='+API_key+''
+    if df.iloc[i,3] != '000000':
+       response =  requests.get(query)
+       if response.status_code==200: 
+            json_format = json.loads(response.text)
+            df.iloc[i,9] = str(json_format['genres'])
+            df.iloc[i,10] = str(json_format['revenue'])
+            df.iloc[i,11] = str(json_format['runtime'])
+            df.iloc[i,12] = str(json_format['tagline'])
+       else:
+           i = i + 1
+    else:
+        i = i + 1
+
+print(df)
+#(0,len(df))
+
+#Write to CSV
+df.to_csv(r'\lb_tmdb.csv',header=True, index = False)
