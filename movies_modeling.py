@@ -89,7 +89,7 @@ ols_fitted = lm.predict(X_test)
 print("OLS R Squared: %s" % round(metrics.r2_score(y_test, ols_fitted),2))
 
 
-###### 1.2  Elastic Net###### 
+###### 1.2  Elastic Net ###### 
 search=model_selection.GridSearchCV(estimator=linear_model.ElasticNet(),param_grid={'alpha':np.logspace(-5,2,8),'l1_ratio':[.2,.4,.6,.8]},scoring='neg_mean_squared_error',n_jobs=1,refit=True,cv=10)
 search.fit(X_train,y_train)
 print(search.best_params_)
@@ -141,6 +141,7 @@ rev_importance = pd.DataFrame.from_dict(rev_importance, orient='index').rename(c
 print("RF R Squared: %s" % round(metrics.r2_score(y_test, rf_fitted),2))
 
 
+################### Feature Importance ###################
 
 #Plot Feature Importance table
 print(rev_importance.sort_values(by='Revenue_Importance', ascending=False))
