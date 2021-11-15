@@ -16,7 +16,7 @@ import warnings
 
 
 #Read in data
-df = pd.read_csv(r'C:\Users\Alex\Downloads\letterboxd\movie_data_final.csv')
+df = pd.read_csv(r'\movie_data_final.csv')
 
 #If revenue is less than $5000 set to NA
 df.loc[df['revenue'] <= 5000,'revenue'] = np.nan
