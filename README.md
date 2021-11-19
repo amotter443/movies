@@ -7,7 +7,7 @@
 Who is this project for?
 ------------------------
 - Cinephiles with a passion for coding
-- Developers interested in multiple areas of development (API calling, sentiment analysis, classification, regression, etc.)
+- Developers interested in multiple areas of development (API calling, sentiment analysis, regression-based modeling, etc.)
 - Affinity users of other sub-communities (i.e. having a Goodreads instead of Letterboxd/IMDB/a movie logging site) who want to also derive personal analytics from their platform usage 
 
 
@@ -54,6 +54,13 @@ Data Dictionary
 - `neutrality_percentage` --  Measures what percentage of the string input has a neutral association
 - `positivity_percentage` --  Measures what percentage of the string input has a positive association
 - `movie_sentiment` --  The compound score is the aggregate sum of positive, negative & neutral percentages. The closer this value is to 1, the more positive the movie's overview is
+
+
+Future Project Expansions
+------------------------
+- Integrate additional movie attributes such as the film's director, leading actors, and thematic content
+- Rather than just the film's lanaguage, integrating country of origin to better understand domestic vs. international viewing
+- Left joining on the Diary dataset rather than Watched one to conduct time series analysis/predict what genre or type of movies I'll watch next
 
 
 Helpful Data Resources
