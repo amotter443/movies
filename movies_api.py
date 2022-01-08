@@ -1,3 +1,7 @@
+#1. Update file path on lines 12 & 78
+#2. If running as a update to existing watched csv and to save re-querying API, un-comment/tweak
+#   update sections at lines 15 & 72-75
+
 import requests
 import json
 import pandas as pd
@@ -6,6 +10,10 @@ API_key = ''
 
 #Read in data
 df = pd.read_csv(r'\watched.csv')
+
+#For Update Run: Allow filtering for values 
+df = df[(df['Date'] > '2021-08-27')]
+
 
 #Drop Letterboxd URI 
 df.drop(['Letterboxd URI'], axis=1, inplace=True)
@@ -61,5 +69,10 @@ for i in range (0,len(df)):
 print(df)
 #(0,len(df))
 
+#For Update Run:
+df_prev = pd.read_csv(r'\lb_tmdb.csv')
+api_results = df_prev.append(df)
+api_results.to_csv(r'\lb_tmdb_newentries.csv',header=True, index = False)
+
 #Write to CSV
-df.to_csv(r'\lb_tmdb.csv',header=True, index = False)
+#df.to_csv(r'\lb_tmdb.csv',header=True, index = False)
