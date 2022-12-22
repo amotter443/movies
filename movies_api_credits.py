@@ -1,7 +1,7 @@
 #NB: The formatting for cast and crew was created and read in even on the initial execution. If starting
 #for the first time, need to run for just the first title and write to CSV before the full run.
 
-#Before running: add API key into line 11, file path to lines 14-16, 77-78
+#Before running: Add API key into line 11, file path to lines 14-16, 77-78
 
 import requests
 import json
