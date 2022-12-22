@@ -1,4 +1,4 @@
-#Before running: add API key into line 11, file path on lines 14
+#Before running: Add API key into line 11, file path on lines 14
 
 #If running for first time: Comment out lines 74-78, uncomment 80-81 and add in file path
 #If running as update to existing as a update to existing lb_tmdb.csv: Add in file path to 74-78 
