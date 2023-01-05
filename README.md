@@ -59,7 +59,7 @@ Data Dictionary
 
 Future Project Expansions
 ------------------------
-- Integrate additional movie attributes such as the film's director, leading actors, and thematic content
+- ~~Integrate additional movie attributes such as the film's director, leading actors, and thematic content~~ *Completed Jan 2023 with "credits" expansion*
 - Rather than just the film's lanaguage, integrating country of origin to better understand domestic vs. international viewing
 - Left joining on the Diary dataset rather than Watched one to conduct time series analysis/predict what genre or type of movies I'll watch next
 
