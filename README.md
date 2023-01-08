@@ -28,6 +28,17 @@ Usage Insights
 - Even though the dashboard was created in Power BI, I wrote the code in `movies_eda.ipynb` to re-create all the visualizations from the final dashboard. I included it as an ipynb rather than just a .py script so you could see the output of each code chunk, but a .py version would be suitable as well if using a different IDE
 
 
+Script Execution Order
+------------------------
+1. `movies_api.py`
+2. `movies_api_credits.py`
+3. `movies_api_credits_cleaning.py`
+4. `movies_cleaning.py`
+5. `movies_sentiment.py`
+6. `movies_modeling.py`
+7. *Optional* `movies_eda.py` or `movies_eda.ipynb`
+
+
 Data Dictionary
 ------------------------
 - `Logged_Date` -- Date I logged the film on Letterboxd
@@ -51,6 +62,9 @@ Data Dictionary
 - `Daily_Movie_Count` --  Calculates using the `Logged_Date` values how many movies I watched on a given date
 - `Weekly_Movie_Count` --  Calculates using the `Logged_Week` and `Logged_Year` values how many movies I watched on a given week
 - `genres` -- Several boolean columns exist that indicate whether or not the movie was classified into the following genres: (Action, Crime, War, Drama, Thriller, Mystery, Comedy, Romance, Sci_Fi, Animation, Documentary, Adventure, Music, Horror, Fantasy, History, Western, Rom_Com)
+- `female_roles` -- Measures the number of female roles in the first 20 billed of a movie's acting credits
+- `female_driven` -- Boolean value that records whether 9 or more of those 20 roles are female, therefore classifying the film as "female-driven"
+- `female_directed` -- Boolean value that records whether or not the director of the film self-identifies as female
 - `negativity_percentage` --  Measures what percentage of the string input has a negative association
 - `neutrality_percentage` --  Measures what percentage of the string input has a neutral association
 - `positivity_percentage` --  Measures what percentage of the string input has a positive association
@@ -72,4 +86,3 @@ Helpful Data Resources
 - [Accessing total IMDB raw data](https://www.imdb.com/interfaces/) not advised because the full data has around 100 million records
 - [Python API Tutorial](https://www.dataquest.io/blog/python-api-tutorial/)
 - [Python Sentiment Analysis](https://realpython.com/python-nltk-sentiment-analysis/)
-
