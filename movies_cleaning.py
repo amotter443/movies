@@ -128,6 +128,22 @@ df['original_language'] = np.where(df['original_language']=='en',1,0)
 df.rename(columns={'original_language':'english_language'}, inplace=True)
 
 
+###############  MISC NEW ADDITIONS SECTION ###############
+
+#Replace empty revenue values with 0
+df['runtime'] = np.where(df['runtime'].isnull(),0,df['runtime'])
+df['runtime'] = np.where(df['runtime']=='None',0,df['runtime'])
+
+#Add in new credit-related data
+credits = pd.read_csv(r'\movie_stats.csv')
+df = df.merge(credits, on=['id'], how='left')
+
+#If these new values are NA (aka weren't pulled in by API) set as 0
+df['female_roles'] = np.where(df['female_roles'].isnull(),0,df['female_roles'])
+df['female_driven'] = np.where(df['female_driven'].isnull(),0,df['female_driven'])
+df['female_directed'] = np.where(df['female_directed'].isnull(),0,df['female_directed'])
+
+
 #Show cleaned data
 print(df)
 
