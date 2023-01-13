@@ -1,7 +1,6 @@
 #Load Requisite Libraries
 import pandas as pd
 import numpy as np
-import datetime
 import matplotlib.pyplot as plt
 import re
 from sklearn.utils import _to_object_array
@@ -18,6 +17,7 @@ df = df.merge(ratings, on=['Date', 'Name'],  how='left')
 df.drop(['Year_y','Letterboxd URI'], axis=1, inplace=True)
 df = df.merge(reviews, on=['Date', 'Name'],  how='left')
 df.drop(['Rating_y','Letterboxd URI','Year','Rewatch','Tags','Watched Date'], axis=1, inplace=True)
+
 
 #Delete reviews and ratings
 del ratings, reviews
@@ -44,7 +44,6 @@ df['Logged_DOW'] = df['Logged_DOW'] + 1
 df['Logged_Month'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.month
 df['Logged_Year'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.year
 df['Logged_Week'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.week
-
 
 #Group by date and count/sum ID values 
 temp = df.groupby('Logged_Date')['id'].aggregate(['count',sum])
@@ -134,9 +133,12 @@ df.rename(columns={'original_language':'english_language'}, inplace=True)
 df['runtime'] = np.where(df['runtime'].isnull(),0,df['runtime'])
 df['runtime'] = np.where(df['runtime']=='None',0,df['runtime'])
 
+
 #Add in new credit-related data
 credits = pd.read_csv(r'\movie_stats.csv')
-df = df.merge(credits, on=['id'], how='left')
+credits.drop(['Date','Name'], axis=1, inplace=True)
+df = df.merge(credits, on=['id','Year'], how='left')
+
 
 #If these new values are NA (aka weren't pulled in by API) set as 0
 df['female_roles'] = np.where(df['female_roles'].isnull(),0,df['female_roles'])
