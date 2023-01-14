@@ -64,6 +64,10 @@ cast_stats_yearly = cast_stats_yearly[(cast_stats_yearly["Logged_Year"]>2017) & 
 cast_stats_yearly = cast_stats_yearly[cast_stats_yearly["movie_count"]>1]
 cast_stats_yearly['order'] = cast_stats_yearly[["Logged_Year","movie_count","lead_performance","popularity"]].apply(tuple,axis=1).rank(method='dense',ascending=False).sub(1).astype(int)
 cast_stats_yearly = cast_stats_yearly.sort_values('order',ascending=True)
+#Create toggle value to display in UI
+cast_stats_yearly['DELETE'] =  cast_stats_yearly.groupby(['Logged_Year','gender'])['order'].transform('min')
+cast_stats_yearly['display'] = np.where(cast_stats_yearly['DELETE']==cast_stats_yearly['order'],1,0)
+cast_stats_yearly.drop(['DELETE'], axis=1, inplace=True)
 print(cast_stats_yearly)
 
 
@@ -79,6 +83,10 @@ crew_stats_yearly = crew_stats_yearly[(crew_stats_yearly["Logged_Year"]>2017) & 
 crew_stats_yearly = crew_stats_yearly[crew_stats_yearly["movie_count"]>1]
 crew_stats_yearly['order'] = crew_stats_yearly[["Logged_Year","job","movie_count","popularity"]].apply(tuple,axis=1).rank(method='dense',ascending=False).sub(1).astype(int)
 crew_stats_yearly = crew_stats_yearly.sort_values('order',ascending=True)
+#Create toggle value to display in UI
+crew_stats_yearly['DELETE'] =  crew_stats_yearly.groupby(['Logged_Year','job'])['order'].transform('min')
+crew_stats_yearly['display'] = np.where(crew_stats_yearly['DELETE']==crew_stats_yearly['order'],1,0)
+crew_stats_yearly.drop(['DELETE'], axis=1, inplace=True)
 print(crew_stats_yearly)
 
 
