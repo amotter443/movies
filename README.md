@@ -2,7 +2,7 @@
 >Using Letterboxd personal data, TMDB API, and data science techniques to analyze movie watching data
 
 
-As an avid movie watcher, the opportunity to combine my loves of data science and film was too good to pass up. Having been a Letterboxd user for many years, I leveraged my personal watch history data to better understand my viewing patterns and learn more about myself in the process. For more detailed report on this project and its methodology, please check out my [LinkedIn article](https://www.linkedin.com/pulse/how-i-used-machine-learning-quantify-my-movie-obsession-alex-motter).
+As an avid movie watcher, the opportunity to combine my loves of data science and film was too good to pass up. Having been a Letterboxd user for many years, I leveraged my personal watch history data to better understand my viewing patterns and learn more about myself in the process. For more detailed report on this project and its methodology, please check out my [LinkedIn article](https://www.linkedin.com/pulse/how-i-used-machine-learning-quantify-my-movie-obsession-alex-motter) and its [follow-up](https://www.linkedin.com/pulse/using-personal-analytics-determine-my-most-watched-actors-alex-motter/) detailing the credits code implementation.
 
 
 Who is this project for?
