@@ -74,7 +74,8 @@ print(df)
 #For Update Run:
 df.to_csv(r'\lb_tmdb_newentries.csv',header=True, index = False)
 df_prev = pd.read_csv(r'\lb_tmdb.csv')
-api_results = df_prev.append(df)
+api_results = pd.concat([df_prev,df],ignore_index=True)
+api_results.sort_values(by='Date',inplace=True)
 api_results.to_csv(r'\lb_tmdb.csv',header=True, index = False)
 
 #Write to CSV
