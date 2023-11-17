@@ -15,6 +15,8 @@ df = pd.read_csv(r'\lb_tmdb.csv')
 cast_full = pd.read_csv(r'\cast.csv')
 crew_full = pd.read_csv(r'\crew.csv')
 
+#For Update Run: Change date to last script execution 
+df = df[(df['Date'] > '2023-11-17')]
 
 #Letterboxd logged titles, i.e. titles for the API to search for
 title = df['id'].astype(str).tolist()
@@ -60,9 +62,8 @@ for i in range (0,len(title)):
                         crew = crew[crew.job.isin(["Director of Photography","Director","Costume Design","Editor","Book","Novel","Screenplay","Writer","Lyricist","Script Consultant"])]
 
                         #Append to existing df
-                        cast_full = cast_full.append(cast)
-                        crew_full = crew_full.append(crew)
-
+                        cast_full = pd.concat([cast_full,cast],ignore_index=True)
+                        crew_full = pd.concat([crew_full,crew],ignore_index=True)
                         #Print iterator to make sure it doesn't get stuck
                         print(i)
                 else:
@@ -72,7 +73,6 @@ for i in range (0,len(title)):
                 i = i + 1
                 print("Non-200 response")
 
-
 #Write to CSV
 cast_full.to_csv(r'\cast.csv',header=True, index = False)
-crew_full.to_csv(r'd\crew.csv',header=True, index = False)
+crew_full.to_csv(r'\crew.csv',header=True, index = False)
