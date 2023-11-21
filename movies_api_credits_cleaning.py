@@ -58,8 +58,9 @@ cast_full['Logged_Year'] = pd.to_datetime(cast_full['Date'], format='%Y-%m-%d').
 cast_stats_yearly = cast_full.groupby(['name', 'Logged_Year']).agg({'id': pd.Series.nunique,'lead_performance': 'sum','gender': 'first','popularity': 'mean','profile_path': 'first'})
 cast_stats_yearly.reset_index(inplace=True)
 cast_stats_yearly.rename(columns = {'index':'name','id':'movie_count'},inplace=True)
-#Remove 2017 and 2023 since those years are in flux/don't count
-cast_stats_yearly = cast_stats_yearly[(cast_stats_yearly["Logged_Year"]>2017) & (cast_stats_yearly["Logged_Year"]<2023)]
+#Remove 2017 since that was the first year with the most bulk uploads
+cast_stats_yearly = cast_stats_yearly[(cast_stats_yearly["Logged_Year"]>2017)]
+
 #Remove entries that only have 1 film seen since that is exteranous and unnecessary rows
 cast_stats_yearly = cast_stats_yearly[cast_stats_yearly["movie_count"]>1]
 cast_stats_yearly['order'] = cast_stats_yearly[["Logged_Year","movie_count","lead_performance","popularity"]].apply(tuple,axis=1).rank(method='dense',ascending=False).sub(1).astype(int)
@@ -77,8 +78,9 @@ crew_full['Logged_Year'] = pd.to_datetime(crew_full['Date'], format='%Y-%m-%d').
 crew_stats_yearly = crew_full.groupby(['name','job','Logged_Year']).agg({'id': pd.Series.nunique,'gender': 'first','popularity': 'mean','profile_path': 'first'})
 crew_stats_yearly.reset_index(inplace=True)
 crew_stats_yearly.rename(columns = {'index':'name','id':'movie_count'},inplace=True)
-#Remove 2017 and 2023 since those years are in flux/don't count
-crew_stats_yearly = crew_stats_yearly[(crew_stats_yearly["Logged_Year"]>2017) & (crew_stats_yearly["Logged_Year"]<2023)]
+#Remove 2017 since that was the first year with the most bulk uploads
+crew_stats_yearly = crew_stats_yearly[(crew_stats_yearly["Logged_Year"]>2017)]
+
 #Remove entries that only have 1 film seen since that is exteranous and unnecessary rows
 crew_stats_yearly = crew_stats_yearly[crew_stats_yearly["movie_count"]>1]
 crew_stats_yearly['order'] = crew_stats_yearly[["Logged_Year","job","movie_count","popularity"]].apply(tuple,axis=1).rank(method='dense',ascending=False).sub(1).astype(int)
