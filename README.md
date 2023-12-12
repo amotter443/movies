@@ -4,6 +4,7 @@
 
 As an avid movie watcher, the opportunity to combine my loves of data science and film was too good to pass up. Having been a Letterboxd user for many years, I leveraged my personal watch history data to better understand my viewing patterns and learn more about myself in the process. For more detailed report on this project and its methodology, please check out my [LinkedIn article](https://www.linkedin.com/pulse/how-i-used-machine-learning-quantify-my-movie-obsession-alex-motter) and its [follow-up](https://www.linkedin.com/pulse/using-personal-analytics-determine-my-most-watched-actors-alex-motter/) detailing the credits code implementation.
 
+The first iteration of this project utilized PowerBI to do the end reporting, but as of December 2023 I created a web UI version that utilizes MongoDB and the streamlit library! The two Python scripts necessary to add/update the data to a MongoDB collection have been added as optional scripts to this project. You can find the [code repo](https://github.com/amotter443/movies-streamlit) on my GitHub and the end site can be accessed at [letterboxd.streamlit.app](https://letterboxd.streamlit.app/)
 
 Who is this project for?
 ------------------------
@@ -37,6 +38,7 @@ Script Execution Order
 5. `movies_sentiment.py`
 6. `movies_modeling.py`
 7. *Optional* `movies_eda.py` or `movies_eda.ipynb`
+8. *Optional* `mongodb_create.py` or `mongodb_update.py`
 
 
 Data Dictionary
