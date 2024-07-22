@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import re
 from sklearn.utils import _to_object_array
+pd.options.mode.chained_assignment = None  # default='warn'
 
 #Read in data
 df = pd.read_csv(r'\lb_tmdb.csv')
@@ -11,6 +12,30 @@ df = pd.read_csv(r'\lb_tmdb.csv')
 #Read in secondary LB sources
 ratings = pd.read_csv(r'\ratings.csv')
 reviews = pd.read_csv(r'\reviews.csv')
+diary = pd.read_csv(r'\diary.csv')
+
+###############  DIARY SECTION ###############
+
+#Initialize Count column 
+diary['watch_count'] = 1
+
+for i in range (0,len(diary)):
+    #Make an array of the titles so far
+    titles = diary['Name'][:i]
+    #Get counts of the array and store in dictionary
+    titles_counts = titles.value_counts().to_dict()
+    if diary['Name'][i] not in titles_counts and diary['Rewatch'][i]=='Yes':
+        diary['watch_count'][i] = 2
+
+#Group by title
+diary = diary.groupby(['Name']).sum()
+diary = diary.sort_values(by='watch_count', ascending=False).reset_index()
+diary = diary[['Name','watch_count']]
+
+#Add into main df, create total minutes of that film watched
+df = df.merge(diary, on=['Name'],  how='left')
+df['watch_count'] = np.where(df['watch_count'].isnull(),1,df['watch_count'])
+df['min_watched'] = df['watch_count'] * df['runtime']
 
 #Ratings and Revews join on Name and Date
 df = df.merge(ratings, on=['Date', 'Name'],  how='left')
@@ -19,8 +44,8 @@ df = df.merge(reviews, on=['Date', 'Name'],  how='left')
 df.drop(['Rating_y','Letterboxd URI','Year','Rewatch','Tags','Watched Date'], axis=1, inplace=True)
 
 
-#Delete reviews and ratings
-del ratings, reviews
+#Delete secondary dfs
+del ratings, reviews, diary
 
 #Drop the _x suffix
 df = df.rename(columns = lambda v: re.sub('_x','',v))
@@ -43,7 +68,7 @@ df['Logged_DOW'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.weekd
 df['Logged_DOW'] = df['Logged_DOW'] + 1
 df['Logged_Month'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.month
 df['Logged_Year'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.year
-df['Logged_Week'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.week
+df['Logged_Week'] = pd.to_datetime(df['Logged_Date'], format='%Y-%m-%d').dt.isocalendar().week
 
 #Group by date and count/sum ID values 
 temp = df.groupby('Logged_Date')['id'].aggregate(['count',sum])
