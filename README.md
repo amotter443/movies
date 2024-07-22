@@ -17,7 +17,7 @@ Accessing The Data
 --------
 - Download personal movie data from Letterboxd: Setting -> Import & Export -> Export Your Data
 - You can also access the direct link to download your data [here](https://letterboxd.com/settings/data/)
-- Save the following files: `watched.csv`, `ratings.csv`, and `reviews.csv`
+- Save the following files: `watched.csv`, `ratings.csv`, `reviews.csv`, and `diary.csv`
 - Request an API key from [TMDB](https://developers.themoviedb.org/3/getting-started/introduction)
 - Once API Key retrieved, use with `movies_api.py` to retrieve additional movie data
 
@@ -57,6 +57,8 @@ Data Dictionary
 - `vote_revenue` -- Total amount of money grossed at the domestic and international box office
 - `runtime` -- Total running length of the film excluding commercials, measured in minutes
 - `tagline` -- Marketing verbiage which provides a punchy incentive for potential viewers to choose to watch the film
+- `watch_count` -- Number of times you have seen the film using diary entries
+- `min_watched` -- runtime * watch_count
 - `Logged_DOW` -- Extracts day of the week from the `Logged_Date` values, recorded in numeric form (0 - Monday, 1 - Tuesday, 2 - Wednesday, 3 - Thursday, 4 - Friday, 5 - Saturday, 6 - Sunday)
 - `Logged_Month` -- Extracts month value from the `Logged_Date` values
 - `Logged_Year` -- Extracts year value from the `Logged_Date` values
@@ -77,7 +79,7 @@ Future Project Expansions
 ------------------------
 - ~~Integrate additional movie attributes such as the film's director, leading actors, and thematic content~~ *Completed Jan 2023 with "credits" expansion*
 - Rather than just the film's lanaguage, integrating country of origin to better understand domestic vs. international viewing
-- Left joining on the Diary dataset rather than Watched one to conduct time series analysis/predict what genre or type of movies I'll watch next
+- Left joining on the Diary dataset rather than Watched one to conduct time series analysis/predict what genre or type of movies I'll watch next *Partially addressed in July 2024 with expansion to calculate minutes watched per film*
 
 
 Helpful Data Resources
