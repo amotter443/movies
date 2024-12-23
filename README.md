@@ -32,13 +32,14 @@ Usage Insights
 Script Execution Order
 ------------------------
 1. `movies_api.py`
-2. `movies_api_credits.py`
-3. `movies_api_credits_cleaning.py`
-4. `movies_cleaning.py`
-5. `movies_sentiment.py`
-6. `movies_modeling.py`
-7. *Optional* `movies_eda.py` or `movies_eda.ipynb`
-8. *Optional* `mongodb_create.py` or `mongodb_update.py`
+2. *Optional* `movies_hours.py`
+3. `movies_api_credits.py`
+4. `movies_api_credits_cleaning.py`
+5. `movies_cleaning.py`
+6. `movies_sentiment.py`
+7. `movies_modeling.py`
+8. *Optional* `movies_eda.py` or `movies_eda.ipynb`
+9. *Optional* `mongodb_create.py` or `mongodb_update.py`
 
 
 Data Dictionary
@@ -78,6 +79,7 @@ Data Dictionary
 Future Project Expansions
 ------------------------
 - ~~Integrate additional movie attributes such as the film's director, leading actors, and thematic content~~ *Completed Jan 2023 with "credits" expansion*
+- ~~Calculate total number of minutes and hours of movies watched using re-watch logs in the Diary dataset~~ *Completed Dec 2024 with movies_hours code*
 - Rather than just the film's lanaguage, integrating country of origin to better understand domestic vs. international viewing
 - Left joining on the Diary dataset rather than Watched one to conduct time series analysis/predict what genre or type of movies I'll watch next *Partially addressed in July 2024 with expansion to calculate minutes watched per film*
 
