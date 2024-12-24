@@ -24,8 +24,16 @@ for i in range (0,len(diary)):
 #Group by title
 diary = diary.groupby(['Name']).sum()
 diary = diary.sort_values(by='count', ascending=False).reset_index()
-
+#Reduce to just name and count columns
 diary = diary[['Name','count']]
+
+#Create list of the remaining Name values in df not in diary
+remaining = df[~df['Name'].isin(diary['Name'])]
+#Reduce to just Name and count columns
+remaining['count'] = 1
+remaining = remaining[['Name','count']]
+#add remaining records to diary df
+diary = pd.concat([diary, remaining])
 print(diary.head())
 
 #Export to separate file
